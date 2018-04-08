@@ -6,10 +6,27 @@
 	<parent>
 	    <groupId>f1ybird.ladder.modules</groupId>
 	    <artifactId>ladder-modules</artifactId>
-	    <version>0.0.1-SNAPSHOT</version>
+	    <version>1.0-SNAPSHOT</version>
   </parent>
-    <groupId>f1ybird.ladder.modules.interface</groupId>
-    <artifactId>ladder-modules-interface</artifactId>
+    <groupId>f1ybird.ladder.module.interface</groupId>
+    <artifactId>ladder-module-interface</artifactId>
     <version>${ladder.version}</version>
 	<packaging>war</packaging>
+    <name>ladder-module-interface</name>
+    <description>ladder-module-interface</description>
+    <dependencies>
+        <dependency>
+            <groupId>f1ybird.ladder.common</groupId>
+            <artifactId>ladder-common</artifactId>
+            <version>${ladder.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>f1ybird.ladder.cms</groupId>
+            <artifactId>ladder-cms</artifactId>
+            <version>${ladder.version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>ladder-module-interface</finalName>
+    </build>
 </project>

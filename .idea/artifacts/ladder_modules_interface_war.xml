@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ladder-modules-interface:war">
+    <output-path>$PROJECT_DIR$/ladder-modules/ladder-module-interface/target</output-path>
+    <root id="archive" name="ladder-module-interface.war">
+      <element id="artifact" artifact-name="ladder-modules-interface:war exploded" />
+    </root>
+  </artifact>
+</component>

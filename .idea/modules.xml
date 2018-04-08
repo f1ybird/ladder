@@ -6,6 +6,9 @@
       <module fileurl="file://$PROJECT_DIR$/ladder-cms/ladder-cms.iml" filepath="$PROJECT_DIR$/ladder-cms/ladder-cms.iml" />
       <module fileurl="file://$PROJECT_DIR$/ladder-common/ladder-common.iml" filepath="$PROJECT_DIR$/ladder-common/ladder-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/ladder-modules/ladder-modules.iml" filepath="$PROJECT_DIR$/ladder-modules/ladder-modules.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ladder-modules/ladder-module-admin/ladder-modules-admin.iml" filepath="$PROJECT_DIR$/ladder-modules/ladder-module-admin/ladder-modules-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ladder-modules/ladder-module-gateway/ladder-modules-gateway.iml" filepath="$PROJECT_DIR$/ladder-modules/ladder-module-gateway/ladder-modules-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ladder-modules/ladder-module-interface/ladder-modules-interface.iml" filepath="$PROJECT_DIR$/ladder-modules/ladder-module-interface/ladder-modules-interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/ladder-org/ladder-org.iml" filepath="$PROJECT_DIR$/ladder-org/ladder-org.iml" />
     </modules>
   </component>

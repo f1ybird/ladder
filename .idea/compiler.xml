@@ -8,14 +8,20 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ladder-cms" />
         <module name="ladder-common" />
+        <module name="ladder-modules-admin" />
+        <module name="ladder-modules-gateway" />
+        <module name="ladder-modules-interface" />
         <module name="ladder-org" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ladder" target="1.5" />
-      <module name="ladder-cms" target="1.5" />
-      <module name="ladder-common" target="1.5" />
-      <module name="ladder-modules" target="1.5" />
+      <module name="ladder" target="1.7" />
+      <module name="ladder-cms" target="1.7" />
+      <module name="ladder-common" target="1.7" />
+      <module name="ladder-modules" target="1.7" />
+      <module name="ladder-modules-admin" target="1.7" />
+      <module name="ladder-modules-gateway" target="1.7" />
+      <module name="ladder-modules-interface" target="1.7" />
       <module name="ladder-org" target="1.5" />
     </bytecodeTargetLevel>
   </component>

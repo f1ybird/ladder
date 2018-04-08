@@ -8,13 +8,12 @@
 	    <artifactId>ladder</artifactId>
 	    <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>f1ybird.ladder</groupId>
+    <groupId>f1ybird.ladder.modules</groupId>
     <artifactId>ladder-modules</artifactId>
-    <version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>ladder-modules-admin</module>
-		<module>ladder-modules-interface</module>
-		<module>ladder-modules-gateway</module>
+		<module>ladder-module-admin</module>
+		<module>ladder-module-interface</module>
+		<module>ladder-module-gateway</module>
 	</modules>
 </project>

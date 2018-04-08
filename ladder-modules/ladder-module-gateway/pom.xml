@@ -6,10 +6,12 @@
 	<parent>
 	    <groupId>f1ybird.ladder.modules</groupId>
 	    <artifactId>ladder-modules</artifactId>
-	    <version>0.0.1-SNAPSHOT</version>
-  </parent>
+	    <version>1.0-SNAPSHOT</version>
+    </parent>
     <groupId>f1ybird.ladder.modules.gateway</groupId>
     <artifactId>ladder-modules-gateway</artifactId>
     <version>${ladder.version}</version>
 	<packaging>war</packaging>
+    <name>ladder-module-gateway</name>
+    <description>ladder-module-gateway</description>
 </project>
