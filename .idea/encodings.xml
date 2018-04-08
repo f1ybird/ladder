@@ -8,5 +8,6 @@
     <file url="file://$PROJECT_DIR$/ladder-modules/ladder-module-admin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ladder-modules/ladder-module-gateway" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ladder-modules/ladder-module-interface" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ladder-org" charset="UTF-8" />
   </component>
 </project>

@@ -11,5 +11,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: f1ybird.ladder.common:ladder-common:${ladder.version}" level="project" />
   </component>
 </module>

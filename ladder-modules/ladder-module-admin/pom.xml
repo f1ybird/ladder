@@ -8,8 +8,8 @@
 	    <artifactId>ladder-modules</artifactId>
 	    <version>1.0-SNAPSHOT</version>
   </parent>
-    <groupId>f1ybird.ladder.modules.admin</groupId>
-    <artifactId>ladder-modules-admin</artifactId>
+    <groupId>f1ybird.ladder.module.admin</groupId>
+    <artifactId>ladder-module-admin</artifactId>
     <version>${ladder.version}</version>
 	<packaging>war</packaging>
     <name>ladder-module-admin Maven Webapp</name>

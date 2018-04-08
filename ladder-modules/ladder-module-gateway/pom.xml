@@ -8,8 +8,8 @@
 	    <artifactId>ladder-modules</artifactId>
 	    <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>f1ybird.ladder.modules.gateway</groupId>
-    <artifactId>ladder-modules-gateway</artifactId>
+    <groupId>f1ybird.ladder.module.gateway</groupId>
+    <artifactId>ladder-module-gateway</artifactId>
     <version>${ladder.version}</version>
 	<packaging>war</packaging>
     <name>ladder-module-gateway</name>

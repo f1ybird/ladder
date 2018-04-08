@@ -6,7 +6,19 @@
 
     <groupId>f1ybird</groupId>
     <artifactId>ladder-org</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
+    <version>${ladder.version}</version>
+    <name>ladder-org</name>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <!-- 描述项目的所有依赖 -->
+    <dependencies>
+        <dependency>
+            <groupId>f1ybird.ladder.common</groupId>
+            <artifactId>ladder-common</artifactId>
+            <version>${ladder.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

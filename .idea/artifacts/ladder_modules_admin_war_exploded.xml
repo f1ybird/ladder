@@ -7,9 +7,7 @@
           <element id="module-output" name="ladder-modules-admin" />
         </element>
         <element id="directory" name="lib">
-          <element id="archive" name="ladder-common-1.0.0.jar">
-            <element id="module-output" name="ladder-common" />
-          </element>
+          <element id="library" level="project" name="Maven: f1ybird.ladder.common:ladder-common:1.0.0" />
           <element id="library" level="project" name="Maven: f1ybird.ladder.org:ladder-org:1.0.0" />
           <element id="archive" name="ladder-cms-1.0.0.jar">
             <element id="module-output" name="ladder-cms" />
