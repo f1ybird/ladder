@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ladder.iml" filepath="$PROJECT_DIR$/ladder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ladder-cms/ladder-cms.iml" filepath="$PROJECT_DIR$/ladder-cms/ladder-cms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ladder-common/ladder-common.iml" filepath="$PROJECT_DIR$/ladder-common/ladder-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ladder-modules/ladder-modules.iml" filepath="$PROJECT_DIR$/ladder-modules/ladder-modules.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ladder-org/ladder-org.iml" filepath="$PROJECT_DIR$/ladder-org/ladder-org.iml" />
+    </modules>
+  </component>
+</project>

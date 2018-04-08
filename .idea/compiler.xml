@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ladder-cms" />
+        <module name="ladder-common" />
+        <module name="ladder-org" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ladder" target="1.5" />
+      <module name="ladder-cms" target="1.5" />
+      <module name="ladder-common" target="1.5" />
+      <module name="ladder-modules" target="1.5" />
+      <module name="ladder-org" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
