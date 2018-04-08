@@ -30,8 +30,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: f1ybird.ladder.common:ladder-common:1.0.0" level="project" />
-    <orderEntry type="library" name="Maven: f1ybird.ladder.org:ladder-org:1.0.0" level="project" />
+    <orderEntry type="module" module-name="ladder-common" />
+    <orderEntry type="module" module-name="ladder-org" />
     <orderEntry type="module" module-name="ladder-cms" />
     <orderEntry type="library" name="Maven: org.json:json:20160810" level="project" />
     <orderEntry type="module-library">

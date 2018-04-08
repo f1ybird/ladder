@@ -22,7 +22,7 @@
       <module name="ladder-modules-admin" target="1.7" />
       <module name="ladder-modules-gateway" target="1.7" />
       <module name="ladder-modules-interface" target="1.7" />
-      <module name="ladder-org" target="1.5" />
+      <module name="ladder-org" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
