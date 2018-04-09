@@ -12,7 +12,7 @@ import java.util.Date;
  * @author JeffXu
  * @since 2015-12-09
  */
-public class GenCodeUtil {
+public class GenCodeUtilBak {
 
     //公共部分
     private static final String RT_1 = "\r\n";
@@ -42,7 +42,7 @@ public class GenCodeUtil {
         }
         if (commonPackage != null && !commonPackage.equals("")) {
             dtoPath = commonPackage.replace(".", "/");
-            String fileName = System.getProperty("user.dir") + "/ladder-org/src/main/java/" + dtoPath + "/dto"
+            String fileName = System.getProperty("user.dir") + "/src/main/java/" + dtoPath + "/dto"
                     + "/" + getLastChar(cName) + "QueryDTO.java";
             File f = new File(fileName);
             FileWriter fw = new FileWriter(f);
@@ -76,7 +76,7 @@ public class GenCodeUtil {
         }
         if (commonPackage != null && !commonPackage.equals("")) {
             dtoPath = commonPackage.replace(".", "/");
-            String fileName = System.getProperty("user.dir") + "/ladder-org/src/main/java/" + dtoPath + "/dto"
+            String fileName = System.getProperty("user.dir") + "/src/main/java/" + dtoPath + "/dto"
                     + "/" + getLastChar(cName) + "FrontQueryDTO.java";
             File f = new File(fileName);
             FileWriter fw = new FileWriter(f);
@@ -110,7 +110,7 @@ public class GenCodeUtil {
         }
         if (commonPackage != null && !commonPackage.equals("")) {
             daoPath = commonPackage.replace(".", "/");
-            String fileName = System.getProperty("user.dir") + "/ladder-org/src/main/java/" + daoPath + "/dao"
+            String fileName = System.getProperty("user.dir") + "/src/main/java/" + daoPath + "/dao"
                     + "/" + getLastChar(cName) + "Dao.java";
             File f = new File(fileName);
             FileWriter fw = new FileWriter(f);
@@ -142,7 +142,7 @@ public class GenCodeUtil {
         }
         if (commonPackage != null && !commonPackage.equals("")) {
             daoPath = commonPackage.replace(".", "/");
-            String fileName = System.getProperty("user.dir") + "/ladder-org/src/main/java/" + daoPath + "/dao"
+            String fileName = System.getProperty("user.dir") + "/src/main/java/" + daoPath + "/dao"
                     + "/" + getLastChar(cName) + "DaoCustom.java";
             File f = new File(fileName);
             FileWriter fw = new FileWriter(f);
@@ -182,7 +182,7 @@ public class GenCodeUtil {
         }
         if (commonPackage != null && !commonPackage.equals("")) {
             daoPath = commonPackage.replace(".", "/");
-            String fileName = System.getProperty("user.dir") + "/ladder-org/src/main/java/" + daoPath + "/dao"
+            String fileName = System.getProperty("user.dir") + "/src/main/java/" + daoPath + "/dao"
                     + "/" + getLastChar(cName) + "DaoImpl.java";
             File f = new File(fileName);
             FileWriter fw = new FileWriter(f);
@@ -233,7 +233,7 @@ public class GenCodeUtil {
         }
         if (commonPackage != null && !commonPackage.equals("")) {
             servicePath = commonPackage.replace(".", "/");
-            String fileName = System.getProperty("user.dir") + "/ladder-org/src/main/java/" + servicePath + "/service"
+            String fileName = System.getProperty("user.dir") + "/src/main/java/" + servicePath + "/service"
                     + "/" + getLastChar(cName) + "Service.java";
             File f = new File(fileName);
             FileWriter fw = new FileWriter(f);
@@ -307,7 +307,7 @@ public class GenCodeUtil {
                 requestMappingStr = "@RequestMapping(\"/" + getFirstLowercase(cName) + "\")" + RT_1;
             }
             controllerPath = controllerPackage.replace(".", "/");
-            String fileName = System.getProperty("user.dir") + "/ladder-org/src/main/java/" + controllerPath + ""
+            String fileName = System.getProperty("user.dir") + "/src/main/java/" + controllerPath + ""
                     + "/" + getLastChar(cName) + "Controller.java";
             File f = new File(fileName);
             FileWriter fw = new FileWriter(f);

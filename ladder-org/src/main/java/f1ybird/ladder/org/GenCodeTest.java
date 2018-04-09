@@ -1,6 +1,8 @@
 package f1ybird.ladder.org;
 
 import f1ybird.ladder.common.util.GenCodeUtil;
+import f1ybird.ladder.org.entity.Resource;
+import f1ybird.ladder.org.entity.Role;
 import f1ybird.ladder.org.entity.User;
 
 import java.io.File;
@@ -14,8 +16,7 @@ public class GenCodeTest {
 		//作者
 		String writer = "kai zhang";
 		//Demo为Entity类（放上自己新增的实体类即可）
-//		GenCodeTest.autoGenAllCode(User.class,s,writer);
-		System.out.println(System.getProperty("java.ext.dirs"));
+		GenCodeTest.autoGenAllCode(Resource.class,s,writer);
 	}
 	
 	/**
