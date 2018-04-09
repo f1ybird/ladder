@@ -40,10 +40,10 @@
 		<div class="l_inner">
 			<form action="${ctx}/do_login" method="post" id="mySubmit">
 				<div class="i_main">
-					<div class="m_txt"
+					<div class="m_txt">
 						<c:choose>
 							<c:when test="${not empty msg}">${msg}</c:when>
-							<c:otherwise>${title}</c:otherwise>
+							<c:otherwise>天梯管理系统</c:otherwise>
 						</c:choose>
 					</div>
 					<div class="m_input">
