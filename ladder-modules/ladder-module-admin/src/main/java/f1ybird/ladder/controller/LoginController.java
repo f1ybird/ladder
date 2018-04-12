@@ -61,7 +61,7 @@ public class LoginController {
                     if(null != rChildren && !rChildren.isEmpty()){
                         for (Resource resource : rChildren){
                             if(StringUtils.isNotBlank(resource.getUrl())){
-                                return "redirect" + resource.getUrl();
+                                return "redirect:" + resource.getUrl();
                             }
                         }
                     }

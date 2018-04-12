@@ -4,7 +4,7 @@
 <%@ include file="common/common.jsp" %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>登录 - ${title }</title>
+<title>登录 - ${title}</title>
 </head>
 <script type="text/javascript">
 	// 提交表单
@@ -43,7 +43,7 @@
 					<div class="m_txt">
 						<c:choose>
 							<c:when test="${not empty msg}">${msg}</c:when>
-							<c:otherwise>天梯管理系统</c:otherwise>
+							<c:otherwise>${title}</c:otherwise>
 						</c:choose>
 					</div>
 					<div class="m_input">
