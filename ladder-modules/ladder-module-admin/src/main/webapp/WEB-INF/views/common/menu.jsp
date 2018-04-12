@@ -10,7 +10,7 @@
         </div>
         <div class="n_user">
             <div class="u_left">
-                <img src="${ctx }/static/images/default_face.jpg" />
+                <img src="${ctx }/static/images/avatar.jpg" />
             </div>
             <div class="u_right">
                 <div class="r_name">

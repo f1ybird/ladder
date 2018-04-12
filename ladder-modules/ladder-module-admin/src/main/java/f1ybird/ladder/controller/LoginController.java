@@ -83,8 +83,10 @@ public class LoginController {
      * @param request
      * @return
      */
-    @RequestMapping("/log_out")
-    public String logOut(HttpServletRequest request){
+    @RequestMapping("/login_out")
+    public String logOut(){
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
         return "redirect:/login";
     }
 

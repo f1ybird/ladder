@@ -1,9 +1,14 @@
 package f1ybird.ladder.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import f1ybird.ladder.common.dto.AjaxResult;
 import f1ybird.ladder.common.entity.PageModel;
+import f1ybird.ladder.common.util.ExcelUtils;
 import f1ybird.ladder.common.util.Md5Util;
+import f1ybird.ladder.org.dto.RoleQueryDTO;
 import f1ybird.ladder.org.dto.UserQueryDTO;
+import f1ybird.ladder.org.entity.Resource;
 import f1ybird.ladder.org.entity.Role;
 import f1ybird.ladder.org.entity.User;
 import f1ybird.ladder.org.service.ResourceService;
@@ -12,6 +17,7 @@ import f1ybird.ladder.org.service.UserService;
 import f1ybird.ladder.util.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.util.StringUtil;
+import org.json.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +27,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.SimpleFormatter;
 
 /**
   * @Description: 用户请求控制类
@@ -192,10 +201,16 @@ public class UserController {
         return map;
     }
 
+
+    /**
+     * 恢复或者禁用用户
+     * @param request
+     * @return
+     */
     @RequestMapping("/ajax/upd/status")
     @ResponseBody
     public AjaxResult ajaxUpdStatus(HttpServletRequest request){
-        log.info("恢复或者删除数据");
+        log.info("恢复或者禁用用户");
         AjaxResult ajaxResult = new AjaxResult();
         ajaxResult.setSuccess(false);
 
@@ -214,4 +229,225 @@ public class UserController {
     }
 
 
+    /**
+     * excel导出用户列表
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/export")
+    public String exportXlsx(HttpServletRequest request, HttpServletResponse response){
+        log.info("用户列表导出");
+        String username = request.getParameter("username");
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        if(StringUtils.isNotBlank(username)){
+            paramsMap.put("username",username);
+        }
+        List<User> users = userService.findUsers(paramsMap);
+
+        Map<String, String> headNameMap = new LinkedHashMap<>();
+        headNameMap.put("roleName","角色");
+        headNameMap.put("userName","帐号");
+        headNameMap.put("realName","姓名");
+        headNameMap.put("mobile","电话号码");
+        headNameMap.put("createDate","创建时间");
+        headNameMap.put("status","状态");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        List<Map<String,Object>> dataList = new ArrayList<>();
+
+        if(null != users && !users.isEmpty()){
+            for (User user : users){
+                String statusName = "正常";// 帐号状态
+                String createDate = "";   // 创建时间
+                String roleName = "";     // 角色名称（多个）
+                if((User.DELETE_FLAG_DELETED).equals(user.getDeleteFlag()) && StringUtils.isNotBlank(user.getDeleteFlag())){
+                    statusName = "删除";
+                }
+
+                if(null != user.getCreateDate()){
+                    createDate = sdf.format(user.getCreateDate());
+                }
+
+                Set<Role> roles = user.getRoles();
+                if(null != roles && !roles.isEmpty()){
+                    for (Role role : roles){
+                        roleName += role.getName() + " ";
+                    }
+                }
+
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("roleName",roleName);
+                map.put("userName",user.getUsername());
+                map.put("realName",user.getRealName());
+                map.put("mobile",user.getMobile());
+                map.put("createDate",createDate);
+                map.put("status",statusName);
+                dataList.add(map);
+            }
+        }
+
+        ExcelUtils.exportXlsx(response,"用户列表导出",headNameMap,dataList);
+
+        return null;
+    }
+
+    /**
+     * 获取角色列表
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/role_list")
+    public String roleList(HttpServletRequest request, Model model){
+        log.info("获取角色列表");
+        String name = request.getParameter("name");
+        String currentPageStr = request.getParameter("currentPage");
+        String pageSizeStr = request.getParameter("pageSize");
+        int currentPage = 1;
+        int pageSize = 10;
+        if(StringUtils.isNotBlank(currentPageStr)){
+            currentPage = Integer.parseInt(currentPageStr);
+        }
+        if(StringUtils.isNotBlank(pageSizeStr)){
+            pageSize = Integer.parseInt(pageSizeStr);
+        }
+
+        RoleQueryDTO roleQueryDTO = new RoleQueryDTO();
+        roleQueryDTO.setName(name);
+        roleQueryDTO.setCurrentPage(currentPage);
+        roleQueryDTO.setPageSize(pageSize);
+
+        PageModel<Role> pageModel = roleService.queryRolePage(roleQueryDTO);
+
+        model.addAttribute("page",pageModel);
+        model.addAttribute("roleQueryDTO",roleQueryDTO);
+        model.addAttribute(Constants.MENU_NAME,Constants.MENU_ROLE_LIST);
+
+        return "/user/role_list";
+    }
+
+    /**
+     * 跳转到角色新增或者编辑页面
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/dialog/role_edit")
+    public String dialogRoleEdit(HttpServletRequest request,Model model){
+        log.info("跳转到角色新增或者编辑页面");
+        List<Map<String, Object>> resourceMap = resourceService.getMap();
+        String id = request.getParameter("id");
+        if(StringUtils.isNotBlank(id)){
+            Role role = roleService.find(id);
+            model.addAttribute("role", role);
+
+            if(null != role){
+                Set<Resource> set = role.getResources();
+                if(null != set && !set.isEmpty()){
+                    for (int i = 0; i < resourceMap.size(); i++) {
+                        Map<String, Object> map = resourceMap.get(i);
+                        String rId = map.get("id").toString();
+                        for (Resource r : set){
+                            if(rId.equals(r.getId())){
+                                map.put("checked",true);
+                                map.put("open",true);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            String resourceJson = objectMapper.writeValueAsString(resourceMap);
+            model.addAttribute("resourceJson",resourceJson);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return "/user/dialog/role_edit";
+    }
+
+    /**
+     * 新增或者编辑角色
+     * @param request
+     * @return
+     */
+    @RequestMapping("/ajax/save_role")
+    @ResponseBody
+    public AjaxResult ajaxSaveRole(HttpServletRequest request){
+        log.info("新增或者编辑角色");
+        AjaxResult ajaxResult = new AjaxResult();
+        ajaxResult.setSuccess(false);
+
+        try {
+            String id = request.getParameter("id");
+            String name = request.getParameter("name");
+            String description = request.getParameter("description");
+            String[] rescoureIds = request.getParameterValues("rescoureIds");
+
+            Role role = null;
+            if(StringUtils.isNotBlank(id)){
+                role = roleService.get(id);
+            }else{
+                role = new Role();
+            }
+
+            role.setName(StringUtils.trim(name));
+            role.setDescription(StringUtils.trim(description));
+
+            Set<Resource> resources = new HashSet<Resource>();
+            if(rescoureIds != null){
+                for(String rId : rescoureIds){
+                    Resource resource = resourceService.find(rId);
+                    if(resource != null){
+                        resources.add(resource);
+                    }
+                }
+            }
+            role.setResources(resources);
+
+            if(StringUtils.isNotBlank(role.getId())){
+                roleService.update(role);
+            }else{
+                roleService.save(role);
+            }
+
+            ajaxResult.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ajaxResult;
+    }
+
+    /**
+     * 角色删除
+     * @param request
+     * @return
+     */
+    @RequestMapping("/ajax/upd_role/delete_flag")
+    @ResponseBody
+    public AjaxResult ajaxUpdRoleDeleteFlag(HttpServletRequest request){
+        log.info("角色删除");
+        AjaxResult ajaxResult = new AjaxResult();
+        ajaxResult.setSuccess(false);
+
+        try {
+            String[] ids = request.getParameterValues("ids");
+            String deleteFlag = request.getParameter("deleteFlag");
+
+            roleService.updateDeleteFlag(ids, deleteFlag);
+
+            ajaxResult.setSuccess(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ajaxResult;
+    }
 }

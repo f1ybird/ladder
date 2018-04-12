@@ -51,6 +51,10 @@ public class UserService extends CommonService<User,String> {
 			for(String id : ids){
 				User user = this.find(id);
 				user.setStatus(status);
+				//编辑时修改删除标识
+				if(null != status){
+					user.setDeleteFlag("1".equals(status.toString()) ? "0" : "1");
+				}
 				this.update(user);
 				users.add(user);
 			}

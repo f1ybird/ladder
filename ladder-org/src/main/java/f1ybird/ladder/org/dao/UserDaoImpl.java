@@ -17,8 +17,9 @@ public class UserDaoImpl extends CustomBaseSqlDaoImpl implements SystemUserDao{
 	public List<User> findUsers(Map<String, Object> params) {
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("select u from User u where u.deleteFlag = 0 and u.type = 0 ");
-		
+//		sb.append("select u from User u where u.deleteFlag = 0 and u.type = 0 ");
+		sb.append("select u from User u where u.type = 0 ");
+
 		Object realName = params.get("realName");
 		if(realName != null){
 			sb.append(" and u.realName like :realName ");
