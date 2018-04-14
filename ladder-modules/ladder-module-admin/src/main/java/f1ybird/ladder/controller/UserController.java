@@ -450,4 +450,165 @@ public class UserController {
 
         return ajaxResult;
     }
+
+    /**
+     * 获取菜单列表
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/menu_list")
+    public String muneList(HttpServletRequest request, Model model){
+        log.info("获取菜单列表");
+        String name = request.getParameter("name");
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        if(StringUtils.isNotBlank(name)){
+            paramsMap.put("name","%" + StringUtils.trim(name) + "%");
+
+        }
+
+        List<Resource> resources = resourceService.findMenuResource(paramsMap);
+        model.addAttribute("resources",resources);
+        model.addAttribute(Constants.MENU_NAME,Constants.MENU_NAME_LIST);
+        model.addAttribute("name",name);
+
+        return "/user/menu_list";
+    }
+
+    /**
+     * 跳转到菜单新增或者编辑页面
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/dialog/menu_edit")
+    public String dialogMenuEdit(HttpServletRequest request,Model model){
+        log.info("跳转到菜单新增或者编辑页面");
+        String id = request.getParameter("id");
+        if(StringUtils.isNotBlank(id)){
+            Resource resource = resourceService.find(id);
+            model.addAttribute("resource",resource);
+        }
+
+        List<Resource> modelResources = resourceService.getRootResourceList();
+        model.addAttribute("modelResources",modelResources);
+
+        return "/user/dialog/menu_edit";
+    }
+
+    /**
+     * 新增或者编辑菜单
+     * @param request
+     * @return
+     */
+    @RequestMapping("/ajax/save_menu")
+    @ResponseBody
+    public AjaxResult ajaxSaveMenu(HttpServletRequest request){
+        log.info("新增或者编辑菜单");
+        AjaxResult ajaxResult = new AjaxResult();
+        ajaxResult.setSuccess(false);
+
+        try {
+            String id = request.getParameter("id");
+            String name = request.getParameter("name");
+            String icon = request.getParameter("icon");
+            String url = request.getParameter("url");
+            String orderNoStr = request.getParameter("orderNo");
+            String type = request.getParameter("type");
+            String parentId = request.getParameter("parentId");
+
+            Resource resource = null;
+            if(StringUtils.isNotBlank(id)){
+                resource = resourceService.find(id);
+            }else{
+                resource = new Resource();
+            }
+
+            resource.setName(StringUtils.trim(name));
+            resource.setIcon(StringUtils.trim(icon));
+            resource.setUrl(StringUtils.trim(url));
+            resource.setType(StringUtils.trim(type));
+
+            Integer orderNo = null;
+            if(StringUtils.isNotBlank(orderNoStr)){
+                orderNo = Integer.parseInt(StringUtils.trim(orderNoStr));
+            }
+            resource.setOrderNo(orderNo);
+
+            Resource parentResource = null;
+            if(StringUtils.isNotBlank(parentId) && "page".equals(type)){
+                parentResource = resourceService.find(parentId);
+            }
+            resource.setParent(parentResource);
+
+            resourceService.saveResource(resource);
+
+            ajaxResult.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ajaxResult;
+    }
+
+    /**
+     * 菜单删除
+     * @param request
+     * @return
+     */
+    @RequestMapping("/ajax/upd_menu/delete_flag")
+    @ResponseBody
+    public AjaxResult ajaxUpdMennuDeleteFlag(HttpServletRequest request){
+        log.info("菜单删除");
+        AjaxResult ajaxResult = new AjaxResult();
+        ajaxResult.setSuccess(false);
+
+        try {
+            String[] ids = request.getParameterValues("ids");
+            String deleteFlag = request.getParameter("deletFlag");
+
+            resourceService.updateDeleteFlag(ids, deleteFlag);
+
+            ajaxResult.setSuccess(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ajaxResult;
+    }
+
+    /**
+     * 测试管理
+     * @return
+     */
+    @RequestMapping("/test")
+    public String test(HttpServletRequest request, Model model){
+        log.info("获取测试列表");
+        String userName = request.getParameter("userName");
+        String currentPageStr = request.getParameter("currentPage");
+        String pageSizeStr = request.getParameter("pageSize");
+        int currentPage = 1;
+        int pageSize = 10;
+        if(StringUtils.isNotBlank(currentPageStr)){
+            currentPage = Integer.parseInt(currentPageStr);
+        }
+        if(StringUtils.isNotBlank(pageSizeStr)){
+            pageSize = Integer.parseInt(pageSizeStr);
+        }
+
+        UserQueryDTO userQueryDTO = new UserQueryDTO();
+        userQueryDTO.setUserName(userName);
+        userQueryDTO.setCurrentPage(currentPage);
+        userQueryDTO.setPageSize(pageSize);
+
+        PageModel<User> pageModel = userService.queryUserPage(userQueryDTO);
+
+        model.addAttribute("page",pageModel);
+        model.addAttribute("userQueryDTO",userQueryDTO);
+        model.addAttribute(Constants.MENU_NAME,Constants.MENU_TEST_LIST);
+
+        return "user/test_list";
+    }
+
 }
