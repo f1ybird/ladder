@@ -15,11 +15,9 @@ import f1ybird.ladder.org.service.ResourceService;
 import f1ybird.ladder.org.service.RoleService;
 import f1ybird.ladder.org.service.UserService;
 import f1ybird.ladder.util.Constants;
+import f1ybird.ladder.util.WebHelper;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.util.StringUtil;
-import org.json.HTTP;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,7 +50,7 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    private static final Logger log = Logger.getLogger(UserController.class);
 
     /**
      * 获取用户列表
@@ -610,5 +608,44 @@ public class UserController {
 
         return "user/test_list";
     }
+
+    /**
+     * 换肤管理
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/skin/list")
+    public String skinList(HttpServletRequest request, Model model){
+        log.info("换肤管理");
+        model.addAttribute(Constants.MENU_NAME,Constants.MENU_UPDATE_SKIN);
+        return "/user/skin_list";
+    }
+
+    /**
+     * 保存修改皮肤
+     * @param request
+     * @return
+     */
+    @RequestMapping("/ajax/upd/skin")
+    public AjaxResult ajaxUpdSkin(HttpServletRequest request){
+        log.info("保存修改皮肤");
+        AjaxResult ajaxResult = new AjaxResult();
+        ajaxResult.setSuccess(false);
+
+        try{
+            String currentSkin = request.getParameter("skin");
+            User user = (User)request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
+            user.setCurrentSkin(currentSkin);
+            userService.update(user);
+            request.getSession().setAttribute(WebHelper.SESSION_LOGIN_USER,user);
+            ajaxResult.setSuccess(true);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ajaxResult;
+    }
+
+
 
 }
