@@ -27,7 +27,7 @@
                         <div data-ui="profile" class="J_profile">
                             <div class="p_user">
                                 <div class="u_face">
-                                    <a href="javascript:;"><img src="${ctx }/static/images/default_face.jpg"></a>
+                                    <a href="javascript:;"><img src="${ctx }/static/images/avatar.jpg"></a>
                                 </div>
                                 <div class="u_name">
                                     <span>${sessionScope.session_login_user.realName }</span>

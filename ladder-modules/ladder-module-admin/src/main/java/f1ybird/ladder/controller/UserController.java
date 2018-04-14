@@ -28,10 +28,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.SimpleFormatter;
 
 /**
-  * @Description: 用户请求控制类
+  * @Description: 权限管理请求控制类
   *
   * @Author: kevin
   *
@@ -646,6 +645,50 @@ public class UserController {
         return ajaxResult;
     }
 
+    /**
+     * 跳转修改密码
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/update_pwd")
+    public String updatePwd(HttpServletRequest request,Model model){
+        log.info("跳转到修改密码页面");
+        model.addAttribute(Constants.MENU_NAME,Constants.MENU_UPDATE_PWD);
+        return "/user/update_pwd";
+    }
+
+    /**
+     * 保存修改密码
+     * @param request
+     * @return
+     */
+    @RequestMapping("/ajax/save_pwd")
+    @ResponseBody
+    public AjaxResult ajaxSavePwd(HttpServletRequest request){
+        log.info("保存修改密码");
+        AjaxResult ajaxResult = new AjaxResult();
+        ajaxResult.setSuccess(false);
+        try{
+            String oldPwd = request.getParameter("oldPwd");
+            String pwd = request.getParameter("pwd");
+
+            User user = WebHelper.getUser(request);
+
+            user = userService.find(user.getId());
+            if(Md5Util.generatePassword(oldPwd).equals(user.getPassword())){
+                user.setPassword(Md5Util.generatePassword(pwd));
+                userService.update(user);
+                ajaxResult.setSuccess(true);
+            }else{
+                ajaxResult.setMsg("原始密码输入不正确");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            ajaxResult.setMsg("修改失败");
+        }
+        return ajaxResult;
+    }
 
 
 }
