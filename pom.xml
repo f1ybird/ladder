@@ -261,6 +261,13 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- 单元测试框架 end -->
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.47</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

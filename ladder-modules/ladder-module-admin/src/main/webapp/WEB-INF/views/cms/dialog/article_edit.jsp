@@ -298,13 +298,13 @@
 			'cancelImg' : '${pageContext.request.contextPath}/static/js/uploadify/uploadify-cancel.png',
 			'queueID' : 'fileQueue',
 			'auto' : true,
-			'multi' : false,
+			'multi' : true,
 			'simUploadLimit' : 1,
 			'buttonText' : '上传图片',
 			'fileObjName' : 'fileData',
 			'width' : 70,
 			'height' : 20,
-			'uploadLimit':3,
+			'uploadLimit':999,
 			'onUploadSuccess' : function(file, data, response) {
 					if(data != null){
 						var attachUrl = '${pageContext.request.contextPath}' + data;								
